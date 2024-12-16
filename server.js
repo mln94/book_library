@@ -3,6 +3,7 @@ const app = express()
 const expressLayouts = require("express-ejs-layouts")
 const routes = require("./server/routes/routes")
 require("dotenv").config()
+const authorsRoutes = require("./server/routes/authors")
 
 const mongoose = require("mongoose")
 
@@ -26,6 +27,7 @@ app.set("layout", "layouts/layout")
 app.use(expressLayouts)
 app.use(express.static("public"))
 app.use("/",routes)
+app.use("/authors", authorsRoutes)
 
 const port = process.env.PORT || 3000
 
