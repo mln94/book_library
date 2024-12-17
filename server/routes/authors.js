@@ -1,16 +1,20 @@
 const express = require("express")
 const Router = express.Router()
+const Author = require("../../models/author")
+const controllers = require("../controllers/authors")
+const validateAuthor = require("../middlewares/validateAuthor");
 
-Router.get("/", (req, res) => {
-    res.render("authors/index")
-})  
+// Router.get("/", async (req, res) => {
+//     res.render("authors/index")
+// })  
+
+
+Router.get("/", controllers.find)
 
 Router.get("/new", (req, res) => {
-    res.render("authors/new")
+    res.render("authors/new", { author: new Author() })
 })  
 
-Router.post("/", (req, res) => {
-    res.send("post book")
-})
+Router.post("/",validateAuthor,controllers.create)
 
 module.exports = Router
